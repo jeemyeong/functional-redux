@@ -1,0 +1,37 @@
+{
+  "name": "functional-redux",
+  "version": "0.0.1",
+  "description": "functional redux",
+  "main": "lib/index.js",
+  "module": "esm/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint 'src/**/*.{ts}' -t verbose",
+    "lint:fix": "yarn lint --fix",
+    "lint:types": "tsc --noEmit",
+    "build:cjs": "tsc",
+    "build:es": "tsc -m esNext --outDir esm",
+    "build": "yarn build:cjs && yarn build:es"
+  },
+  "files": [
+    "lib/",
+    "esm/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeemyeong/functional-redux.git"
+  },
+  "keywords": [
+    "redux"
+  ],
+  "author": "@jeemyeong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeemyeong/functional-redux/issues"
+  },
+  "homepage": "https://github.com/jeemyeong/functional-redux#readme",
+  "devDependencies": {
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3"
+  }
+}
