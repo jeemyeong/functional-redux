@@ -4,14 +4,18 @@
   "description": "functional redux",
   "main": "lib/index.js",
   "module": "esm/index.js",
+  "types": "lib/index.d.ts",
+  "typings": "lib/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "tslint 'src/**/*.{ts}' -t verbose",
     "lint:fix": "yarn lint --fix",
     "lint:types": "tsc --noEmit",
     "build:cjs": "tsc",
     "build:es": "tsc -m esNext --outDir esm",
-    "build": "yarn build:cjs && yarn build:es"
+    "build": "yarn build:cjs && yarn build:es",
+    "clean": "rimraf lib esm"
   },
   "files": [
     "lib/",
@@ -31,7 +35,12 @@
   },
   "homepage": "https://github.com/jeemyeong/functional-redux#readme",
   "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "jest": "^24.9.0",
     "tslint": "^5.20.0",
     "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "redux": "^4.0.4"
   }
 }
