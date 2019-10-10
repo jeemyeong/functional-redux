@@ -70,3 +70,36 @@ interface Options {
   rejectedCallback?: (action: Action) => void;
 }
 ```
+
+## redux-wait
+
+
+```js
+import { applyMiddleware, compose, createStore } from 'redux';
+import { createWaitMiddleware } from "functional-redux";
+
+import reducer from './store/reducer';
+
+const waitOption = {
+  milliseconds: 3000
+}
+
+// Create the Redux store.
+const store = createStore(
+  reducer,
+  applyMiddleware(createWaitMiddleware(waitOption))
+);
+```
+
+You may also pass options to the `v` function.
+
+#### Available options
+
+```typescript
+interface Options {
+  milliseconds?: number;
+  filter?: (action: Action) => boolean | Promise<boolean>;
+  rejectedCallback?: () => void;
+}
+```
+
