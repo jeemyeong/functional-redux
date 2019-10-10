@@ -1,8 +1,8 @@
-import { Action, Middleware } from 'redux';
+import { AnyAction, Middleware } from 'redux';
 
 interface Options {
   confirm?: () => boolean | Promise<boolean>;
-  filter?: (action: Action) => boolean | Promise<boolean>;
+  filter?: (action: AnyAction) => boolean | Promise<boolean>;
   rejectedCallback?: () => void;
 }
 
@@ -16,7 +16,7 @@ export const createConfirmMiddleware = (rawOptions?: Options): Middleware => {
   const options = { ...defaultOptions, ...rawOptions };
   const { confirm, filter, rejectedCallback } = options;
 
-  return () => (next: any) => async (action: Action) => {
+  return () => (next: any) => async (action: AnyAction) => {
     const filtered = await filter(action);
     if (filtered) {
       const answer = await confirm();

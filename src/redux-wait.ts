@@ -1,15 +1,13 @@
-import { Action, Middleware } from 'redux';
+import { AnyAction, Middleware } from 'redux';
 
 interface Options {
   milliseconds?: number;
-  filter?: (action: Action) => boolean | Promise<boolean>;
-  rejectedCallback?: () => void;
+  filter?: (action: AnyAction) => boolean | Promise<boolean>;
 }
 
 const defaultOptions = {
   milliseconds: 1000,
   filter: () => true,
-  rejectedCallback: () => {},
 };
 
 const wait = (timeout: number) => new Promise(resolve =>
@@ -18,17 +16,13 @@ const wait = (timeout: number) => new Promise(resolve =>
 
 export const createWaitMiddleware = (rawOptions?: Options): Middleware => {
   const options = { ...defaultOptions, ...rawOptions };
-  const { milliseconds, filter, rejectedCallback } = options;
+  const { milliseconds, filter } = options;
 
-  return () => (next: any) => async (action: Action) => {
+  return () => (next: any) => async (action: AnyAction) => {
     const filtered = await filter(action);
     if (filtered) {
-      const answer = await wait(milliseconds);
-      if (answer) {
-        next(action);
-      } else {
-        rejectedCallback();
-      }
+      await wait(milliseconds);
+      next(action);
     } else {
       next(action);
     }
