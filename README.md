@@ -22,11 +22,11 @@ import reducer from './store/reducer';
 // Create the Redux store.
 const store = createStore(
   reducer,
-  applyMiddleware(reduxConfirm())
+  applyMiddleware(createConfirmMiddleware())
 );
 ```
 
-You may also pass options to the `reduxConfirm` function.
+You may also pass options to the `createConfirmMiddleware` function.
 
 #### Available options
 
@@ -53,15 +53,14 @@ const interceptOption = {
   }
 }
 
-
 // Create the Redux store.
 const store = createStore(
   reducer,
-  applyMiddleware(reduxIntercept(interceptOption))
+  applyMiddleware(createInterceptMiddleware(interceptOption))
 );
 ```
 
-You should pass options to the `reduxIntercept` function.
+You should pass options to the `createInterceptMiddleware` function.
 
 #### Available options
 
