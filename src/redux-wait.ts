@@ -1,4 +1,4 @@
-import { Action, AnyAction, Middleware } from 'redux';
+import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
 interface Options {
   milliseconds?: number;
@@ -18,7 +18,7 @@ export const createWaitMiddleware = (rawOptions?: Options): Middleware => {
   const options = { ...defaultOptions, ...rawOptions };
   const { milliseconds, filter } = options;
 
-  return () => (next: any) => async (action: AnyAction) => {
+  return () => (next: Dispatch<AnyAction>) => async (action: AnyAction) => {
     const filtered = await filter(action);
     if (filtered) {
       await wait(milliseconds);

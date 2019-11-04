@@ -1,4 +1,4 @@
-import { Action, AnyAction, Middleware } from 'redux';
+import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
 interface Options {
   enhance: <T extends Action = AnyAction, S extends Action = AnyAction>(action: T) => S
@@ -13,7 +13,7 @@ export const createEnhancerMiddleware = (rawOptions: Options): Middleware => {
   const options = { ...defaultOptions, ...rawOptions };
   const { enhance, filter } = options;
 
-  return () => (next: any) => async (action: Action) => {
+  return () => (next: Dispatch<AnyAction>) => async (action: Action) => {
     const filtered = await filter(action);
     if (filtered) {
       next(enhance(action));
