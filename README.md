@@ -141,3 +141,51 @@ interface Options {
 }
 ```
 
+## redux-record
+
+```js
+import { applyMiddleware, createStore } from 'redux';
+import { createRecordMiddleware } from "functional-redux";
+
+import reducer from './store/reducer';
+
+// Create the Redux store.
+const store = createStore(
+  reducer,
+  applyMiddleware(createRecordMiddleware())
+);
+
+store.dispatch({type: "START_REDUX_RECORD"});
+store.dispatch(YOUR_ACTION);
+store.dispatch({type: "STOP_REDUX_RECORD"});
+store.dispatch({type: "CALLBACK_REDUX_RECORD", callback: (history) => {console.log(history)}});
+store.dispatch({type: "REPLAY_REDUX_RECORD"}); // REPLAY
+
+```
+
+You may also pass options to the `v` function.
+
+#### Available options
+
+```typescript
+import { Action, AnyAction, Dispatch, Middleware } from 'redux';
+
+interface Options {
+  filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
+  START_REDUX_RECORD?: string;
+  STOP_REDUX_RECORD?: string;
+  RESUME_REDUX_RECORD?: string;
+  CALLBACK_REDUX_RECORD?: string;
+  REPLAY_REDUX_RECORD?: string;
+}
+
+const defaultOptions = {
+  filter: () => true,
+  START_REDUX_RECORD: "START_REDUX_RECORD",
+  STOP_REDUX_RECORD: "STOP_REDUX_RECORD",
+  RESUME_REDUX_RECORD: "RESUME_REDUX_RECORD",
+  CALLBACK_REDUX_RECORD: "CALLBACK_REDUX_RECORD",
+  REPLAY_REDUX_RECORD: "REPLAY_REDUX_RECORD",
+};
+```
+
