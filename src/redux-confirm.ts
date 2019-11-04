@@ -1,8 +1,8 @@
-import { AnyAction, Middleware } from 'redux';
+import { Action, AnyAction, Middleware } from 'redux';
 
 interface Options {
   confirm?: () => boolean | Promise<boolean>;
-  filter?: (action: AnyAction) => boolean | Promise<boolean>;
+  filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
   rejectedCallback?: () => void;
 }
 

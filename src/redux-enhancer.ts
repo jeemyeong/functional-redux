@@ -1,8 +1,8 @@
 import { Action, AnyAction, Middleware } from 'redux';
 
 interface Options {
-  enhance: (action: AnyAction) => AnyAction
-  filter?: (action: AnyAction) => boolean | Promise<boolean>;
+  enhance: <T extends Action = AnyAction, S extends Action = AnyAction>(action: T) => S
+  filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
 }
 
 const defaultOptions = {
