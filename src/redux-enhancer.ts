@@ -13,7 +13,7 @@ export const createEnhancerMiddleware = (rawOptions: Options): Middleware => {
   const options = { ...defaultOptions, ...rawOptions };
   const { enhance, filter } = options;
 
-  return () => (next: Dispatch<AnyAction>) => async (action: Action) => {
+  return () => (next: Dispatch<AnyAction>) => async (action: AnyAction) => {
     const filtered = await filter(action);
     if (filtered) {
       next(enhance(action));

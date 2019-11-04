@@ -14,7 +14,7 @@ $ npm i functional-redux
 
 
 ```js
-import { applyMiddleware, compose, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { createConfirmMiddleware } from "functional-redux";
 
 import reducer from './store/reducer';
@@ -31,9 +31,11 @@ You may also pass options to the `createConfirmMiddleware` function.
 #### Available options
 
 ```typescript
+import { Action, AnyAction } from 'redux';
+
 interface Options {
   confirm?: () => boolean | Promise<boolean>;
-  filter?: (action: Action) => boolean | Promise<boolean>;
+  filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
   rejectedCallback?: () => void;
 }
 ```
@@ -42,7 +44,7 @@ interface Options {
 ## redux-intercept
 
 ```js
-import { applyMiddleware, compose, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { createInterceptMiddleware } from "functional-redux";
 
 import reducer from './store/reducer';
@@ -51,7 +53,7 @@ const interceptOption = {
   filter: (action) => {
     return !action.type.match(PERMIT_REGEX)
   }
-}
+};
 
 // Create the Redux store.
 const store = createStore(
@@ -65,9 +67,11 @@ You should pass options to the `createInterceptMiddleware` function.
 #### Available options
 
 ```typescript
+import { Action, AnyAction } from 'redux';
+
 interface Options {
-  filter: (action: Action) => boolean | Promise<boolean>;
-  rejectedCallback?: (action: Action) => void;
+  filter: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
+  rejectedCallback?: <T extends Action = AnyAction>(action: T) => void;
 }
 ```
 
@@ -75,14 +79,14 @@ interface Options {
 
 
 ```js
-import { applyMiddleware, compose, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { createWaitMiddleware } from "functional-redux";
 
 import reducer from './store/reducer';
 
 const waitOption = {
   milliseconds: 3000
-}
+};
 
 // Create the Redux store.
 const store = createStore(
@@ -96,10 +100,44 @@ You may also pass options to the `v` function.
 #### Available options
 
 ```typescript
+import { Action, AnyAction } from 'redux';
+
 interface Options {
   milliseconds?: number;
-  filter?: (action: Action) => boolean | Promise<boolean>;
-  rejectedCallback?: () => void;
+  filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
+}
+```
+
+## redux-enhancer
+
+
+```js
+import { applyMiddleware, createStore } from 'redux';
+import { createEnhancerMiddleware } from "functional-redux";
+
+import reducer from './store/reducer';
+
+const enhancerOption = {
+  enhance: (action) => ({...action, created: new Date()})
+};
+
+// Create the Redux store.
+const store = createStore(
+  reducer,
+  applyMiddleware(createEnhancerMiddleware(enhancerOption))
+);
+```
+
+You may also pass options to the `v` function.
+
+#### Available options
+
+```typescript
+import { Action, AnyAction } from 'redux';
+
+interface Options {
+  enhance: <T extends Action = AnyAction, S extends Action = AnyAction>(action: T) => S
+  filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
 }
 ```
 
