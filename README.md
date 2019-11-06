@@ -108,23 +108,23 @@ interface Options {
 }
 ```
 
-## redux-enhancer
+## redux-enricher
 
 
 ```js
 import { applyMiddleware, createStore } from 'redux';
-import { createEnhancerMiddleware } from "functional-redux";
+import { createEnricherMiddleware } from "functional-redux";
 
 import reducer from './store/reducer';
 
-const enhancerOption = {
-  enhance: (action) => ({...action, created: new Date()})
+const enricherOption = {
+  enrich: (action) => ({...action, created: new Date()})
 };
 
 // Create the Redux store.
 const store = createStore(
   reducer,
-  applyMiddleware(createEnhancerMiddleware(enhancerOption))
+  applyMiddleware(createEnricherMiddleware(enricherOption))
 );
 ```
 
@@ -136,7 +136,7 @@ You may also pass options to the `v` function.
 import { Action, AnyAction } from 'redux';
 
 interface Options {
-  enhance: <T extends Action = AnyAction, S extends Action = AnyAction>(action: T) => S
+  enrich: <T extends Action = AnyAction, S extends Action = AnyAction>(action: T) => S
   filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
 }
 ```
