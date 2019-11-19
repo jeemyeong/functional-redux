@@ -26,7 +26,8 @@ export const createThrottleMiddleware = (rawOptions: ThrottleOptions): Middlewar
       }
       next(action);
       inThrottle = true;
-      setTimeout(() => inThrottle = false, limit)
+      setTimeout(() => inThrottle = false, limit);
+      return;
     }
     next(action);
   };
