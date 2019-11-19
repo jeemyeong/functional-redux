@@ -95,7 +95,7 @@ const store = createStore(
 );
 ```
 
-You may also pass options to the `v` function.
+You may also pass options to the `createWaitMiddleware` function.
 
 #### Available options
 
@@ -128,7 +128,7 @@ const store = createStore(
 );
 ```
 
-You may also pass options to the `v` function.
+You may also pass options to the `createEnricherMiddleware` function.
 
 #### Available options
 
@@ -163,12 +163,12 @@ store.dispatch({type: "REPLAY_REDUX_RECORD"}); // REPLAY
 
 ```
 
-You may also pass options to the `v` function.
+You may also pass options to the `createRecordMiddleware` function.
 
 #### Available options
 
 ```typescript
-import { Action, AnyAction, Dispatch, Middleware } from 'redux';
+import { Action, AnyAction } from 'redux';
 
 interface Options {
   filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
@@ -189,3 +189,39 @@ const defaultOptions = {
 };
 ```
 
+## redux-throttle
+
+```js
+import { applyMiddleware, createStore } from 'redux';
+import { createThrottleMiddleware } from "functional-redux";
+
+import reducer from './store/reducer';
+
+// Create the Redux store.
+const store = createStore(
+  reducer,
+  applyMiddleware(createThrottleMiddleware())
+);
+
+store.dispatch({type: "YOUR_ACTION"}); // WORKS
+store.dispatch({type: "YOUR_ACTION"}); // DOESN'T WORK
+
+```
+
+You may also pass options to the `createThrottleMiddleware` function.
+
+#### Available options
+
+```typescript
+import { Action, AnyAction, Dispatch, Middleware } from 'redux';
+
+interface Options {
+  filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
+  limit?: number;
+}
+
+const defaultOptions = {
+  filter: () => true,
+  limit: 50
+};
+```

@@ -18,10 +18,6 @@ const defaultOptions = {
   REPLAY_REDUX_RECORD: "REPLAY_REDUX_RECORD",
 };
 
-let history: AnyAction[] = [];
-
-let recording = false;
-
 export const createRecordMiddleware = (rawOptions: Options): Middleware => {
   const options = { ...defaultOptions, ...rawOptions };
   const {
@@ -33,6 +29,8 @@ export const createRecordMiddleware = (rawOptions: Options): Middleware => {
     REPLAY_REDUX_RECORD
   } = options;
 
+  let history: AnyAction[] = [];
+  let recording = false;
   return ({dispatch}) => (next: Dispatch<AnyAction>) => async (action: AnyAction) => {
     const filtered = await filter(action);
     if (filtered) {
