@@ -1,6 +1,6 @@
 import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
-interface Options {
+interface WaitOptions {
   milliseconds?: number;
   filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
 }
@@ -14,7 +14,7 @@ const wait = (timeout: number) => new Promise(resolve =>
   setTimeout(() => resolve(undefined), timeout)
 );
 
-export const createWaitMiddleware = (rawOptions?: Options): Middleware => {
+export const createWaitMiddleware = (rawOptions?: WaitOptions): Middleware => {
   const options = { ...defaultOptions, ...rawOptions };
   const { milliseconds, filter } = options;
 

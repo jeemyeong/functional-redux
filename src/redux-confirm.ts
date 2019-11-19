@@ -1,6 +1,6 @@
 import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
-interface Options {
+export interface ConfirmOptions {
   confirm?: () => boolean | Promise<boolean>;
   filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
   rejectedCallback?: () => void;
@@ -12,7 +12,7 @@ const defaultOptions = {
   rejectedCallback: () => {},
 };
 
-export const createConfirmMiddleware = (rawOptions?: Options): Middleware => {
+export const createConfirmMiddleware = (rawOptions?: ConfirmOptions): Middleware => {
   const options = { ...defaultOptions, ...rawOptions };
   const { confirm, filter, rejectedCallback } = options;
 

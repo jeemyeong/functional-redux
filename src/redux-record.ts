@@ -1,6 +1,6 @@
 import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
-interface Options {
+export interface RecordOptions {
   filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
   START_REDUX_RECORD?: string;
   STOP_REDUX_RECORD?: string;
@@ -18,7 +18,7 @@ const defaultOptions = {
   REPLAY_REDUX_RECORD: "REPLAY_REDUX_RECORD",
 };
 
-export const createRecordMiddleware = (rawOptions: Options): Middleware => {
+export const createRecordMiddleware = (rawOptions: RecordOptions): Middleware => {
   const options = { ...defaultOptions, ...rawOptions };
   const {
     filter,

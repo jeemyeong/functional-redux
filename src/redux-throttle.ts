@@ -1,6 +1,6 @@
 import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
-interface Options {
+export interface ThrottleOptions {
   filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
   limit?: number;
 }
@@ -10,7 +10,7 @@ const defaultOptions = {
   limit: 50
 };
 
-export const createThrottleMiddleware = (rawOptions: Options): Middleware => {
+export const createThrottleMiddleware = (rawOptions: ThrottleOptions): Middleware => {
   const options = { ...defaultOptions, ...rawOptions };
   const {
     filter,

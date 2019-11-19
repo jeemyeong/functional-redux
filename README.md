@@ -33,7 +33,7 @@ You may also pass options to the `createConfirmMiddleware` function.
 ```typescript
 import { Action, AnyAction } from 'redux';
 
-interface Options {
+interface ConfirmOptions {
   confirm?: () => boolean | Promise<boolean>;
   filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
   rejectedCallback?: () => void;
@@ -69,7 +69,7 @@ You should pass options to the `createInterceptMiddleware` function.
 ```typescript
 import { Action, AnyAction } from 'redux';
 
-interface Options {
+interface InterceptOptions {
   filter: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
   rejectedCallback?: <T extends Action = AnyAction>(action: T) => void;
 }
@@ -102,7 +102,7 @@ You may also pass options to the `createWaitMiddleware` function.
 ```typescript
 import { Action, AnyAction } from 'redux';
 
-interface Options {
+interface WaitOptions {
   milliseconds?: number;
   filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
 }
@@ -135,7 +135,7 @@ You may also pass options to the `createEnricherMiddleware` function.
 ```typescript
 import { Action, AnyAction } from 'redux';
 
-interface Options {
+interface EnricherOptions {
   enrich: <T extends Action = AnyAction, S extends Action = AnyAction>(action: T) => S
   filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
 }
@@ -170,7 +170,7 @@ You may also pass options to the `createRecordMiddleware` function.
 ```typescript
 import { Action, AnyAction } from 'redux';
 
-interface Options {
+interface RecordOptions {
   filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
   START_REDUX_RECORD?: string;
   STOP_REDUX_RECORD?: string;
@@ -215,7 +215,7 @@ You may also pass options to the `createThrottleMiddleware` function.
 ```typescript
 import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
-interface Options {
+interface ThrottleOptions {
   filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
   limit?: number;
 }

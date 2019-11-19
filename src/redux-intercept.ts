@@ -1,11 +1,11 @@
 import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
-interface Options {
+export interface InterceptOptions {
   filter: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
   rejectedCallback?: <T extends Action = AnyAction>(action: T) => void;
 }
 
-export const createInterceptMiddleware = (options: Options): Middleware => {
+export const createInterceptMiddleware = (options: InterceptOptions): Middleware => {
   const { filter, rejectedCallback } = options;
 
   return () => (next: Dispatch<AnyAction>) => async (action: AnyAction) => {

@@ -1,6 +1,6 @@
 import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
-interface Options {
+export interface EnricherOptions {
   enrich: <T extends Action = AnyAction, S extends Action = AnyAction>(action: T) => S
   filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
 }
@@ -9,7 +9,7 @@ const defaultOptions = {
   filter: () => true,
 };
 
-export const createEnricherMiddleware = (rawOptions: Options): Middleware => {
+export const createEnricherMiddleware = (rawOptions: EnricherOptions): Middleware => {
   const options = { ...defaultOptions, ...rawOptions };
   const { enrich, filter } = options;
 
