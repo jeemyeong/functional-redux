@@ -213,9 +213,50 @@ You may also pass options to the `createThrottleMiddleware` function.
 #### Available options
 
 ```typescript
-import { Action, AnyAction, Dispatch, Middleware } from 'redux';
+import { Action, AnyAction } from 'redux';
 
 interface ThrottleOptions {
+  filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
+  milliseconds?: number;
+}
+
+const defaultOptions = {
+  filter: () => true,
+  milliseconds: 50
+};
+```
+
+## redux-spread
+
+```js
+import { applyMiddleware, createStore } from 'redux';
+import { createSpreadMiddleware } from "functional-redux";
+
+import reducer from './store/reducer';
+
+const spreadOption = {
+  milliseconds: 1000
+};
+
+// Create the Redux store.
+const store = createStore(
+  reducer,
+  applyMiddleware(createSpreadMiddleware(spreadOption))
+);
+
+store.dispatch({type: "YOUR_ACTION"}); // WORKS
+store.dispatch({type: "YOUR_ACTION"}); // WORKS AFTER 1000ms
+
+```
+
+You may also pass options to the `createSpreadMiddleware` function.
+
+#### Available options
+
+```typescript
+import { Action, AnyAction } from 'redux';
+
+interface SpreadOptions {
   filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
   milliseconds?: number;
 }
