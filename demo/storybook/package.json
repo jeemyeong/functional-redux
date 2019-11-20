@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "https://jeemyeong.github.io/functional-redux",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook -o .out",
+    "deploy": "yarn build-storybook && gh-pages -d .out -r https://github.com/jeemyeong/functional-redux -b gh-pages"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +18,7 @@
     "@types/react-redux": "^7.1.5",
     "@types/react-router-dom": "^5.1.2",
     "functional-redux": "0.7.8",
+    "gh-pages": "^2.1.1",
     "react-redux": "^7.1.3",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.4",
