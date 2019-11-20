@@ -266,3 +266,46 @@ const defaultOptions = {
   milliseconds: 50
 };
 ```
+
+
+## redux-subscribe
+
+```js
+import { applyMiddleware, createStore } from 'redux';
+import { createSubscribeMiddleware } from "functional-redux";
+
+import reducer from './store/reducer';
+
+const subscribeMiddleware = createSubscribeMiddleware();
+
+// Create the Redux store.
+const store = createStore(
+  reducer,
+  applyMiddleware(subscribeMiddleware)
+);
+
+const unsubscribe = subscribeMiddleware.subscribe((action) => {
+  console.log(action);
+});
+
+store.dispatch({type: "YOUR_ACTION"}); // LOGGED
+unsubscribe();
+store.dispatch({type: "YOUR_ACTION"}); // NOT LOGGED
+
+```
+
+You may also pass options to the `createSubscribeMiddleware` function.
+
+#### Available options
+
+```typescript
+import { Action, AnyAction } from 'redux';
+
+interface SubscribeOptions {
+  filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
+}
+
+const defaultOptions = {
+  filter: () => true,
+};
+```
