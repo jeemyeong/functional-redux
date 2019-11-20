@@ -10,7 +10,7 @@ import { logging } from "./logging";
 
 export const ADD = () => {
   const waitOptions: ThrottleOptions = {
-    limit: 3000,
+    milliseconds: 3000,
     filter: (action) => {
       return action.type === TodoActionType.ADD_TODO
     }
@@ -28,7 +28,7 @@ export const ADD = () => {
 
 export const REMOVE = () => {
   const waitOptions: ThrottleOptions = {
-    limit: 3000,
+    milliseconds: 3000,
     filter: (action) => {
       return action.type === TodoActionType.REMOVE_TODO
     }
@@ -46,7 +46,7 @@ export const REMOVE = () => {
 
 export const ADD_OR_REMOVE = () => {
   const waitOptions: ThrottleOptions = {
-    limit: 3000,
+    milliseconds: 3000,
     filter: (action) => {
       return action.type === TodoActionType.ADD_TODO
         || action.type === TodoActionType.REMOVE_TODO
