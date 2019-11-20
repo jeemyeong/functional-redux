@@ -3,7 +3,7 @@ import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 export interface ConfirmOptions<T extends Action = AnyAction> {
   confirm?: () => boolean | Promise<boolean>;
   filter?: (action: T) => boolean | Promise<boolean>;
-  rejectedCallback?: () => void;
+  rejectedCallback?: (action: T) => void;
 }
 
 const defaultOptions = {
@@ -23,7 +23,7 @@ export const createConfirmMiddleware = (rawOptions?: ConfirmOptions): Middleware
       if (answer) {
         next(action);
       } else {
-        rejectedCallback();
+        rejectedCallback(action);
       }
     } else {
       next(action);
