@@ -1,4 +1,4 @@
-import { applyMiddleware, createStore, Middleware } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { createEnricherMiddleware, EnricherOptions } from "functional-redux";
 import * as React from "react";
 import { Provider } from "react-redux";
@@ -6,13 +6,7 @@ import TodoView from "../src/todo/TodoView";
 import { BrowserRouter as Router } from "react-router-dom";
 import { rootReducer } from "../src/store/rootReducer";
 import { TodoActionType } from '../src/todo/todoReducer';
-import { action as storybookAction } from "@storybook/addon-actions";
-
-const logging: Middleware = () => (next) => (action) => {
-  console.log(action);
-  storybookAction("action")(JSON.stringify(action));
-  next(action);
-};
+import { logging } from "./logging";
 
 export const ADD = () => {
   const enricherOptions: EnricherOptions = {

@@ -6,6 +6,7 @@ import TodoView from "../src/todo/TodoView";
 import { BrowserRouter as Router } from "react-router-dom";
 import { rootReducer } from "../src/store/rootReducer";
 import { TodoActionType } from '../src/todo/todoReducer';
+import { logging } from "./logging";
 
 export const ADD = () => {
   const interceptOptions: InterceptOptions = {
@@ -15,7 +16,7 @@ export const ADD = () => {
   };
   const store = createStore(
     rootReducer,
-    applyMiddleware(createInterceptMiddleware(interceptOptions))
+    applyMiddleware(createInterceptMiddleware(interceptOptions), logging)
   );
   return <Router basename={process.env.PUBLIC_URL}>
     <Provider store={store}>
@@ -32,7 +33,7 @@ export const REMOVE = () => {
   };
   const store = createStore(
     rootReducer,
-    applyMiddleware(createInterceptMiddleware(interceptOptions))
+    applyMiddleware(createInterceptMiddleware(interceptOptions), logging)
   );
   return <Router basename={process.env.PUBLIC_URL}>
     <Provider store={store}>
@@ -50,7 +51,7 @@ export const ADD_OR_REMOVE = () => {
   };
   const store = createStore(
     rootReducer,
-    applyMiddleware(createInterceptMiddleware(interceptOptions))
+    applyMiddleware(createInterceptMiddleware(interceptOptions), logging)
   );
   return <Router basename={process.env.PUBLIC_URL}>
     <Provider store={store}>

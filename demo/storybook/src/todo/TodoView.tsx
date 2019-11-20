@@ -7,7 +7,7 @@ import { IRootState } from "../store/rootReducer";
 import { ITodo, TodoActionCreator } from "./todoReducer";
 import '../index.css';
 
-const TodoView: React.FC = () => {
+const TodoView: React.FC = ({ children }) => {
   return (
     <section className="todoapp">
       <TodoHeader/>
@@ -15,6 +15,7 @@ const TodoView: React.FC = () => {
       <TodoList/>
       {/* This footer should hidden by default and shown when there are todos */}
       <TodoFooter/>
+      {children}
     </section>
   );
 };
@@ -122,10 +123,10 @@ const Todo: React.FC<{
     setEditMode(false);
   };
 
-  if (matchPath(location.pathname, {path: Route.Active})?.isExact && todo.checked) {
+  if (matchPath(location.pathname, { path: Route.Active })?.isExact && todo.checked) {
     return null
   }
-  if (matchPath(location.pathname, {path: Route.Completed})?.isExact && !todo.checked) {
+  if (matchPath(location.pathname, { path: Route.Completed })?.isExact && !todo.checked) {
     return null
   }
 
@@ -242,7 +243,7 @@ const TodoFooter = () => {
       <ul className="filters">
         <li>
           <a
-            className={matchPath(location.pathname, {path: Route.All})?.isExact ? "selected" : ""}
+            className={matchPath(location.pathname, { path: Route.All })?.isExact ? "selected" : ""}
             onClick={setRouteAll}
           >
             All
@@ -250,14 +251,14 @@ const TodoFooter = () => {
         </li>
         <li>
           <a
-            className={matchPath(location.pathname, {path: Route.Active})?.isExact ? "selected" : ""}
+            className={matchPath(location.pathname, { path: Route.Active })?.isExact ? "selected" : ""}
             onClick={setRouteActive}
           >
             Active
           </a>
         </li>
         <li>
-          <a className={matchPath(location.pathname, {path: Route.Completed})?.isExact ? "selected" : ""}
+          <a className={matchPath(location.pathname, { path: Route.Completed })?.isExact ? "selected" : ""}
              onClick={setRouteComplete}
           >
             Completed

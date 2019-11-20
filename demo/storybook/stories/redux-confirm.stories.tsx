@@ -1,12 +1,12 @@
 import { applyMiddleware, createStore } from 'redux';
-import { createConfirmMiddleware } from "functional-redux";
+import { createConfirmMiddleware, ConfirmOptions } from "functional-redux";
 import * as React from "react";
 import { Provider } from "react-redux";
 import TodoView from "../src/todo/TodoView";
 import { BrowserRouter as Router } from "react-router-dom";
 import { rootReducer } from "../src/store/rootReducer";
-import { ConfirmOptions } from "functional-redux/lib/redux-confirm";
 import { TodoActionType } from '../src/todo/todoReducer';
+import { logging } from "./logging";
 
 export const ADD = () => {
   const confirmOptions: ConfirmOptions = {
@@ -16,7 +16,7 @@ export const ADD = () => {
   };
   const store = createStore(
     rootReducer,
-    applyMiddleware(createConfirmMiddleware(confirmOptions))
+    applyMiddleware(createConfirmMiddleware(confirmOptions), logging)
   );
   return <Router basename={process.env.PUBLIC_URL}>
     <Provider store={store}>
@@ -33,7 +33,7 @@ export const REMOVE = () => {
   };
   const store = createStore(
     rootReducer,
-    applyMiddleware(createConfirmMiddleware(confirmOptions))
+    applyMiddleware(createConfirmMiddleware(confirmOptions), logging)
   );
   return <Router basename={process.env.PUBLIC_URL}>
     <Provider store={store}>
@@ -51,7 +51,7 @@ export const ADD_OR_REMOVE = () => {
   };
   const store = createStore(
     rootReducer,
-    applyMiddleware(createConfirmMiddleware(confirmOptions))
+    applyMiddleware(createConfirmMiddleware(confirmOptions), logging)
   );
   return <Router basename={process.env.PUBLIC_URL}>
     <Provider store={store}>
