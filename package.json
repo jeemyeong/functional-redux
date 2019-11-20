@@ -14,6 +14,7 @@
     "lint:types": "tsc --noEmit",
     "build:cjs": "tsc",
     "build:es": "tsc -m esNext --outDir esm",
+    "prebuild": "yarn clean",
     "build": "yarn build:cjs && yarn build:es",
     "clean": "rimraf lib esm"
   },
