@@ -1,7 +1,7 @@
 import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
-export interface ThrottleOptions {
-  filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
+export interface ThrottleOptions<T extends Action = AnyAction> {
+  filter?: (action: T) => boolean | Promise<boolean>;
   limit?: number;
 }
 

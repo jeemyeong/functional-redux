@@ -1,8 +1,8 @@
 import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
-export interface ConfirmOptions {
+export interface ConfirmOptions<T extends Action = AnyAction> {
   confirm?: () => boolean | Promise<boolean>;
-  filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
+  filter?: (action: T) => boolean | Promise<boolean>;
   rejectedCallback?: () => void;
 }
 

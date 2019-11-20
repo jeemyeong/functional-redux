@@ -1,7 +1,7 @@
 import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
-export interface RecordOptions {
-  filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
+export interface RecordOptions<T extends Action = AnyAction> {
+  filter?: (action: T) => boolean | Promise<boolean>;
   START_REDUX_RECORD?: string;
   STOP_REDUX_RECORD?: string;
   RESUME_REDUX_RECORD?: string;

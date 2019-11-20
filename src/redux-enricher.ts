@@ -1,8 +1,8 @@
 import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
-export interface EnricherOptions {
-  enrich: <T extends Action = AnyAction, S extends Action = AnyAction>(action: T) => S
-  filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
+export interface EnricherOptions<T extends Action = AnyAction, S extends Action = AnyAction> {
+  enrich: (action: T) => Promise<S>
+  filter?: (action: T) => boolean | Promise<boolean>;
 }
 
 const defaultOptions = {
@@ -16,7 +16,7 @@ export const createEnricherMiddleware = (rawOptions: EnricherOptions): Middlewar
   return () => (next: Dispatch<AnyAction>) => async (action: AnyAction) => {
     const filtered = await filter(action);
     if (filtered) {
-      next(enrich(action));
+      next(await enrich(action));
     } else {
       next(action);
     }

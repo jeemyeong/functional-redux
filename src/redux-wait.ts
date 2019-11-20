@@ -1,8 +1,8 @@
 import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
-export interface WaitOptions {
+export interface WaitOptions<T extends Action = AnyAction> {
   milliseconds?: number;
-  filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
+  filter?: (action: T) => boolean | Promise<boolean>;
 }
 
 const defaultOptions = {
