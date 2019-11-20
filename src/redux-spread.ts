@@ -10,7 +10,7 @@ const defaultOptions = {
   milliseconds: 50,
 };
 
-const wait = (milliseconds: number) => {
+const wait = (milliseconds: number): Promise<void> => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
 };
 
@@ -21,12 +21,12 @@ export const createSpreadMiddleware = (rawOptions: SpreadOptions): Middleware =>
     milliseconds,
   } = options;
 
-  const promise = Promise.resolve();
+  let promise = Promise.resolve();
 
   return ({dispatch}) => (next: Dispatch<AnyAction>) => async (action: AnyAction) => {
     const filtered = await filter(action);
     if (filtered) {
-      promise.then(() => next(action)).then(() => wait(milliseconds))
+      promise = promise.then(() => {next(action)}).then(() => wait(milliseconds));
       return;
     }
     next(action);
