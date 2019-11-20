@@ -1,7 +1,7 @@
 import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
 export interface EnricherOptions<T extends Action = AnyAction, S extends Action = AnyAction> {
-  enrich: (action: T) => Promise<S>
+  enrich: (action: T) => S | Promise<S>
   filter?: (action: T) => boolean | Promise<boolean>;
 }
 
