@@ -16,7 +16,7 @@ export const ADD = () => {
   };
   const store = createStore(
     rootReducer,
-    applyMiddleware(createInterceptMiddleware(interceptOptions), logging)
+    applyMiddleware(logging, createInterceptMiddleware(interceptOptions))
   );
   return <Router basename={process.env.PUBLIC_URL}>
     <Provider store={store}>
@@ -33,7 +33,7 @@ export const REMOVE = () => {
   };
   const store = createStore(
     rootReducer,
-    applyMiddleware(createInterceptMiddleware(interceptOptions), logging)
+    applyMiddleware(logging, createInterceptMiddleware(interceptOptions))
   );
   return <Router basename={process.env.PUBLIC_URL}>
     <Provider store={store}>
@@ -51,7 +51,7 @@ export const ADD_OR_REMOVE = () => {
   };
   const store = createStore(
     rootReducer,
-    applyMiddleware(createInterceptMiddleware(interceptOptions), logging)
+    applyMiddleware(logging, createInterceptMiddleware(interceptOptions))
   );
   return <Router basename={process.env.PUBLIC_URL}>
     <Provider store={store}>
