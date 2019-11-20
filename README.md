@@ -217,11 +217,11 @@ import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
 interface ThrottleOptions {
   filter?: <T extends Action = AnyAction>(action: T) => boolean | Promise<boolean>;
-  limit?: number;
+  milliseconds?: number;
 }
 
 const defaultOptions = {
   filter: () => true,
-  limit: 50
+  milliseconds: 50
 };
 ```

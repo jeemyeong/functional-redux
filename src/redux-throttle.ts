@@ -2,19 +2,19 @@ import { Action, AnyAction, Dispatch, Middleware } from 'redux';
 
 export interface ThrottleOptions<T extends Action = AnyAction> {
   filter?: (action: T) => boolean | Promise<boolean>;
-  limit?: number;
+  milliseconds?: number;
 }
 
 const defaultOptions = {
   filter: () => true,
-  limit: 50
+  milliseconds: 50
 };
 
 export const createThrottleMiddleware = (rawOptions: ThrottleOptions): Middleware => {
   const options = { ...defaultOptions, ...rawOptions };
   const {
     filter,
-    limit
+    milliseconds
   } = options;
 
   let inThrottle = false;
@@ -26,7 +26,7 @@ export const createThrottleMiddleware = (rawOptions: ThrottleOptions): Middlewar
       }
       next(action);
       inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
+      setTimeout(() => inThrottle = false, milliseconds);
       return;
     }
     next(action);
